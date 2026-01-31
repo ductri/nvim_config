@@ -87,11 +87,11 @@ P.S. You can delete this when you're done too. It's your config now! :)
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
+vim.g.mapleader = '-'
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -234,6 +234,8 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
+require('vim-options')
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -271,18 +273,18 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
+  -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  --   'lewis6991/gitsigns.nvim',
+  --   opts = {
+  --     signs = {
+  --       add = { text = '+' },
+  --       change = { text = '~' },
+  --       delete = { text = '_' },
+  --       topdelete = { text = '‾' },
+  --       changedelete = { text = '~' },
+  --     },
+  --   },
+  -- },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -298,58 +300,59 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  { -- Useful plugin to show you pending keybinds.
-    'folke/which-key.nvim',
-    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
-    opts = {
-      -- delay between pressing a key and opening which-key (milliseconds)
-      -- this setting is independent of vim.o.timeoutlen
-      delay = 0,
-      icons = {
-        -- set icon mappings to true if you have a Nerd Font
-        mappings = vim.g.have_nerd_font,
-        -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-        -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
-        keys = vim.g.have_nerd_font and {} or {
-          Up = '<Up> ',
-          Down = '<Down> ',
-          Left = '<Left> ',
-          Right = '<Right> ',
-          C = '<C-…> ',
-          M = '<M-…> ',
-          D = '<D-…> ',
-          S = '<S-…> ',
-          CR = '<CR> ',
-          Esc = '<Esc> ',
-          ScrollWheelDown = '<ScrollWheelDown> ',
-          ScrollWheelUp = '<ScrollWheelUp> ',
-          NL = '<NL> ',
-          BS = '<BS> ',
-          Space = '<Space> ',
-          Tab = '<Tab> ',
-          F1 = '<F1>',
-          F2 = '<F2>',
-          F3 = '<F3>',
-          F4 = '<F4>',
-          F5 = '<F5>',
-          F6 = '<F6>',
-          F7 = '<F7>',
-          F8 = '<F8>',
-          F9 = '<F9>',
-          F10 = '<F10>',
-          F11 = '<F11>',
-          F12 = '<F12>',
-        },
-      },
-
-      -- Document existing key chains
-      spec = {
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-      },
-    },
-  },
+  -- { -- Useful plugin to show you pending keybinds.
+  --   'folke/which-key.nvim',
+  --   enabled=false,
+  --   event = 'VimEnter', -- Sets the loading event to 'VimEnter'
+  --   opts = {
+  --     -- delay between pressing a key and opening which-key (milliseconds)
+  --     -- this setting is independent of vim.o.timeoutlen
+  --     delay = 0,
+  --     icons = {
+  --       -- set icon mappings to true if you have a Nerd Font
+  --       mappings = vim.g.have_nerd_font,
+  --       -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
+  --       -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
+  --       keys = vim.g.have_nerd_font and {} or {
+  --         Up = '<Up> ',
+  --         Down = '<Down> ',
+  --         Left = '<Left> ',
+  --         Right = '<Right> ',
+  --         C = '<C-…> ',
+  --         M = '<M-…> ',
+  --         D = '<D-…> ',
+  --         S = '<S-…> ',
+  --         CR = '<CR> ',
+  --         Esc = '<Esc> ',
+  --         ScrollWheelDown = '<ScrollWheelDown> ',
+  --         ScrollWheelUp = '<ScrollWheelUp> ',
+  --         NL = '<NL> ',
+  --         BS = '<BS> ',
+  --         Space = '<Space> ',
+  --         Tab = '<Tab> ',
+  --         F1 = '<F1>',
+  --         F2 = '<F2>',
+  --         F3 = '<F3>',
+  --         F4 = '<F4>',
+  --         F5 = '<F5>',
+  --         F6 = '<F6>',
+  --         F7 = '<F7>',
+  --         F8 = '<F8>',
+  --         F9 = '<F9>',
+  --         F10 = '<F10>',
+  --         F11 = '<F11>',
+  --         F12 = '<F12>',
+  --       },
+  --     },
+  --
+  --     -- Document existing key chains
+  --     spec = {
+  --       { '<leader>s', group = '[S]earch' },
+  --       { '<leader>t', group = '[T]oggle' },
+  --       { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+  --     },
+  --   },
+  -- },
 
   -- NOTE: Plugins can specify dependencies.
   --
@@ -412,7 +415,11 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {
+          find_files= {
+            follow=true,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -555,6 +562,8 @@ require('lazy').setup({
           --  To jump back, press <C-t>.
           map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
+          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -640,19 +649,20 @@ require('lazy').setup({
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
-        virtual_text = {
-          source = 'if_many',
-          spacing = 2,
-          format = function(diagnostic)
-            local diagnostic_message = {
-              [vim.diagnostic.severity.ERROR] = diagnostic.message,
-              [vim.diagnostic.severity.WARN] = diagnostic.message,
-              [vim.diagnostic.severity.INFO] = diagnostic.message,
-              [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-          end,
-        },
+        virtual_text = false,
+        -- virtual_text = {
+        --   source = 'if_many',
+        --   spacing = 2,
+        --   format = function(diagnostic)
+        --     local diagnostic_message = {
+        --       [vim.diagnostic.severity.ERROR] = diagnostic.message,
+        --       [vim.diagnostic.severity.WARN] = diagnostic.message,
+        --       [vim.diagnostic.severity.INFO] = diagnostic.message,
+        --       [vim.diagnostic.severity.HINT] = diagnostic.message,
+        --     }
+        --     return diagnostic_message[diagnostic.severity]
+        --   end,
+        -- },
       }
 
       -- LSP servers and clients are able to communicate to each other what features they support.
@@ -736,46 +746,47 @@ require('lazy').setup({
     end,
   },
 
-  { -- Autoformat
-    'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
-    cmd = { 'ConformInfo' },
-    keys = {
-      {
-        '<leader>f',
-        function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
-        end,
-        mode = '',
-        desc = '[F]ormat buffer',
-      },
-    },
-    opts = {
-      notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          return nil
-        else
-          return {
-            timeout_ms = 500,
-            lsp_format = 'fallback',
-          }
-        end
-      end,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
-      },
-    },
-  },
+  -- { -- Autoformat
+  --   'stevearc/conform.nvim',
+  --   enabled = false,
+  --   event = { 'BufWritePre' },
+  --   cmd = { 'ConformInfo' },
+  --   keys = {
+  --     {
+  --       '<leader>f',
+  --       function()
+  --         require('conform').format { async = true, lsp_format = 'fallback' }
+  --       end,
+  --       mode = '',
+  --       desc = '[F]ormat buffer',
+  --     },
+  --   },
+  --   opts = {
+  --     notify_on_error = false,
+  --     format_on_save = function(bufnr)
+  --       -- Disable "format_on_save lsp_fallback" for languages that don't
+  --       -- have a well standardized coding style. You can add additional
+  --       -- languages here or re-enable it for the disabled ones.
+  --       local disable_filetypes = { c = true, cpp = true }
+  --       if disable_filetypes[vim.bo[bufnr].filetype] then
+  --         return nil
+  --       else
+  --         return {
+  --           timeout_ms = 500,
+  --           lsp_format = 'fallback',
+  --         }
+  --       end
+  --     end,
+  --     formatters_by_ft = {
+  --       lua = { 'stylua' },
+  --       -- Conform can also run multiple formatters sequentially
+  --       -- python = { "isort", "black" },
+  --       --
+  --       -- You can use 'stop_after_first' to run the first available formatter from the list
+  --       -- javascript = { "prettierd", "prettier", stop_after_first = true },
+  --     },
+  --   },
+  -- },
 
   { -- Autocompletion
     'saghen/blink.cmp',
@@ -876,27 +887,28 @@ require('lazy').setup({
     },
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
-    end,
-  },
+  -- { -- You can easily change to a different colorscheme.
+  --   -- Change the name of the colorscheme plugin below, and then
+  --   -- change the command in the config to whatever the name of that colorscheme is.
+  --   --
+  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  --   'folke/tokyonight.nvim',
+  --   enabled = false,
+  --   priority = 1000, -- Make sure to load this before all the other start plugins.
+  --   config = function()
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     require('tokyonight').setup {
+  --       styles = {
+  --         comments = { italic = false }, -- Disable italics in comments
+  --       },
+  --     }
+  --
+  --     -- Load the colorscheme here.
+  --     -- Like many other themes, this one has different styles, and you could load
+  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --     vim.cmd.colorscheme 'tokyonight-night'
+  --   end,
+  -- },
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
@@ -956,6 +968,13 @@ require('lazy').setup({
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
+    config = function()
+      vim.o.foldmethod = "expr"
+      vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.o.foldenable = true
+      vim.opt.foldtext = ""
+      vim.o.foldlevelstart = 99
+    end,
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
@@ -984,7 +1003,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
@@ -1014,3 +1033,4 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
