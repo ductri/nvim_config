@@ -51,4 +51,3 @@ vim.keymap.set("n", "*", ":keepjumps normal! mi*`i<CR>", { noremap = true, silen
 
 -- vim.o.foldmethod = "expr"
 -- vim.o.foldexpr = "v:lua.vim.lsp.foldexpr()"
-
